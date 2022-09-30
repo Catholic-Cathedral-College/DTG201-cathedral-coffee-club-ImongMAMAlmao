@@ -8,7 +8,7 @@ E = int("3")
 sugar = float("0.5")
 total = 0
 menu1 = "I•------»   ☕  𝑀𝐸𝒩𝒰  ☕   »------•I \n ________________________ \n |𝓕𝓵𝓪𝓽 𝔀𝓱𝓲𝓽𝓮(A) $3.00    | \n |𝓒𝓪𝓹𝓹𝓾𝓬𝓬𝓲𝓷𝓸(C) $3.00    | \n |𝓛𝓪𝓽𝓽𝓮(B)      $3.50    | \n |𝓗𝓸𝓽 𝓒𝓱𝓸𝓬𝓸𝓵𝓪𝓽𝓮 (D) $4.00| \n |𝓓𝓮𝓬𝓪𝓯 (E)        $3.00 | \n |_______________________|"
-
+orderlist = ["A" "B" "C" "D" "E"]
 
 def order(): #this is the function to add the orders and mixed with the payment method and the receipt for the coffe maker
 
@@ -22,10 +22,10 @@ def order(): #this is the function to add the orders and mixed with the payment 
   receipt = str ( name + '\n You ordered : ')
   
   print("\n")
-
+  orders = True
   #this is to ask the user what they want to order
   order = input(" \n what would you want to order? enter letters (please space your orders out)").upper().split()
-     
+         
   #these if statements are to determine what, how many and how much they ordered
   if 'A' in order:
     numbera = float(input("\n How many Flat White drinks do you want?"))
@@ -34,6 +34,7 @@ def order(): #this is the function to add the orders and mixed with the payment 
     lettera = str(numbera)
     
   if 'B' in order:
+    
     numberb = float(input("\n How many Latte drinks do you want?"))
     B = numberb * B
     total += B
@@ -79,20 +80,29 @@ def order(): #this is the function to add the orders and mixed with the payment 
     print("Thank you for coming")
   
   payment = input("are you paying with cash or card? \n").lower().strip()
-
+  enough = True
   #this if statements is for the user when they are paying 
-  if payment != 'card':
-    cash = float(input("how much money are you paying with? "))
-    if cash == total:
-      print("\n")
-      print ("thank you")
-      print("\n")
-    elif cash > total:
-      change = cash - total
-      print("\n")
-      print ("this is your change : $", change)
-      print("\n")
-      print ("thank you")
+  if payment != 'card':  
+    while enough:
+      cash = float(input("how much money are you paying with? "))
+      if cash == total:
+        print("\n")
+        print ("thank you")
+        print("\n")
+        enough = False
+        
+      if cash > total:
+        change = cash - total
+        print("\n")
+        print ("this is your change : $", change)
+        print("\n")
+        print ("thank you")
+        enough = False
+        
+      else:
+        print("please pay the right amount.")
+     
+
   if payment == 'card':
     print("please insert your card")
     pin = str(input('\n please enter your 4 digit pin.'))
@@ -140,13 +150,16 @@ def welcome(): #it prints the welcometext at the beginning
   print("           ,-*'^'~*-.,_,.-*~  ☕𝒲𝐸𝐿𝒞O𝑀𝐸 𝒯O 𝒯𝐻𝐸 𝒢0𝐿𝒟𝐸𝒩 𝒞𝒜𝐹𝐸☕  ~*-.,_,.-*~'^'*-,")
   print("~~~~~~~~*~*~~~,~~~~~~~~~,~~~~~~~~*~~,~~~~~~~~~.,~~~~**~~~~~~~~~,~~~~~,~~~~~~~~~~,~~~")
 
-welcome()
-print("\n")
-print("\n")
-name = input("what is your name?     ")
-print("\n")
-print(f"Hello {name} 𝒲𝐸𝐿𝒞O𝑀𝐸 𝒯O 𝒯𝐻𝐸 𝒢0𝐿𝒟𝐸𝒩 𝒞𝒜𝐹𝐸")
-print("\n")
-time.sleep(1)
-menu()
-welcome()
+
+while True:
+  welcome()
+  print("\n")
+  print("\n")
+  name = input("what is your name?     ")
+  print("\n")
+  print(f"Hello {name} 𝒲𝐸𝐿𝒞O𝑀𝐸 𝒯O 𝒯𝐻𝐸 𝒢0𝐿𝒟𝐸𝒩 𝒞𝒜𝐹𝐸")
+  print("\n")
+  time.sleep(1)
+  menu()
+  continue
+
